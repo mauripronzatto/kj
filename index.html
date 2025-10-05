@@ -1,0 +1,116 @@
+<html>
+
+<head>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quinta Serie - Práctico 2 · Ejercicio 02</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h2> Ejercicio 02: ¿Es igual a 100 o no?</h2>
+
+    <div class="instrucciones">
+      <h3>Instrucciones</h3>
+      <p>Comprobaremos si una <strong>variable llamada valor</strong> es igual a <strong>100</strong>.
+         Escribí un número y pulsá "Ejecutar".</p>
+    </div>
+
+    
+    <label for="valorInput">Valor:</label>
+    <input id="valorInput" type="number" placeholder="Ingresá un número" />
+
+    
+    <div id="mensaje" class="resultado" aria-live="polite">Haz clic en "Ejecutar" para comprobar.</div>
+
+    
+    <div id="enlaces" class="enlaces-publicacion" aria-hidden="false"></div>
+
+    <button id="btnEjecutar" class="btn" type="button">¡Ejecutar Ejercicio!</button>
+
+    <footer>Curso de JavaScript · Enseñanza Media | Ejercicio 02 - If/Else</footer>
+  </div>
+
+
+  <script>
+    
+    function verificarValor() {
+      let raw = document.getElementById('valorInput').value;
+      let valor = parseInt(raw, 10);
+      let mensaje = document.getElementById('mensaje');
+      let enlaces = document.getElementById('enlaces');
+
+      
+      mensaje.classList.remove('mensaje-correcto', 'mensaje-incorrecto', 'mensaje-warn');
+      enlaces.innerHTML = '';
+
+      
+      if (Number.isNaN(valor)) {
+        mensaje.innerText = ' Ingresá un número válido en el campo "Valor".';
+        mensaje.classList.add('mensaje-warn');
+        console.log('verificarValor(): entrada inválida (no número)');
+        return;
+      }
+
+      
+      if (valor === 100) {
+        mensaje.innerHTML = '<strong>Correcto:</strong> El valor es exactamente 100.';
+        mensaje.classList.add('mensaje-correcto');
+        console.log('verificarValor(): valor = ' + valor + ' → CORRECTO');
+      } else {
+        mensaje.innerHTML = ' <strong>Incorrecto:</strong> El valor NO es 100.';
+        mensaje.classList.add('mensaje-incorrecto');
+        console.log('verificarValor(): valor = ' + valor + ' INCORRECTO');
+      }
+
+     
+      let linkCorrecto = document.createElement('a');
+      linkCorrecto.href = '#';
+      linkCorrecto.innerText = 'Ver: "El valor es exactamente igual a 100"';
+     
+      linkCorrecto.onclick = function(e){
+        e.preventDefault();
+        mostrarResultado(100);
+      };
+
+      let linkIncorrecto = document.createElement('a');
+      linkIncorrecto.href = '#';
+      linkIncorrecto.innerText = 'Ver: "El valor NO es 100."';
+      linkIncorrecto.style.marginLeft = '12px';
+      linkIncorrecto.onclick = function(e){
+        e.preventDefault();
+        mostrarResultado(101);
+      };
+
+   
+      enlaces.appendChild(linkCorrecto);
+      enlaces.appendChild(linkIncorrecto);
+
+      console.log('verificarValor(): enlaces de publicación añadidos al contenedor #enlaces');
+    }
+
+
+    function mostrarResultado(valorMostrar) {
+      let mensaje = document.getElementById('mensaje');
+      mensaje.classList.remove('mensaje-correcto', 'mensaje-incorrecto', 'mensaje-warn');
+
+      if (valorMostrar === 100) {
+        mensaje.innerHTML = ' Enlace seleccionado:  El valor es exactamente igual a 100.';
+        mensaje.classList.add('mensaje-correcto');
+        console.log('mostrarResultado(): enlace seleccionado → CORRECTO');
+      } else {
+        mensaje.innerHTML = ' Enlace seleccionado:  El valor NO es 100.';
+        mensaje.classList.add('mensaje-incorrecto');
+        console.log('mostrarResultado(): enlace seleccionado → INCORRECTO');
+      }
+    }
+
+  
+    let btnEjecutar = document.getElementById('btnEjecutar');
+    btnEjecutar.onclick = verificarValor;
+
+  
+    console.log('Script cargado: botón #btnEjecutar enlazado a verificarValor; funciones listas.');
+  </script>
+</body>
+</html>
